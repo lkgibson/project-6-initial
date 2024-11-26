@@ -14,59 +14,55 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class DictionaryReference
-{
+public class DictionaryReference {
+
     private static final Logger logger = LoggerFactory.getLogger(DictionaryReference.class.getName());
 
     private static Map<String, String> dictionary;
 
-    static
-    {
-        try
-        {
+    static {
+
+        try {
             readDictionaryFile();
-        }
-        catch (JsonProcessingException e)
-        {
+        } catch (JsonProcessingException e) {
             logger.error("There was a problem reading the dictionary file");
         }
     }
 
-    private DictionaryReference()
-    {
+    private DictionaryReference() {
 
     }
 
-    private static void readDictionaryFile() throws JsonProcessingException
-    {
+    private static void readDictionaryFile() throws JsonProcessingException {
+
         StopWatch sw = new StopWatch();
         sw.start();
+
         InputStream inputStream = DictionaryReference.class.getClassLoader()
-                                                            .getResourceAsStream("dictionary.json");
+                                                           .getResourceAsStream("dictionary.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         String json = bufferedReader.lines()
-                .collect(Collectors.joining("\n"));
+                                    .collect(Collectors.joining("\n"));
 
         ObjectMapper mapper = new ObjectMapper();
         dictionary = mapper.readValue(json, Map.class);
 
         sw.stop();
 
-        long millliseconds = sw.getLastTaskTimeMillis();
+        long milliseconds = sw.getLastTaskTimeMillis();
 
         String message = new StringBuilder().append("Dictionary created with ")
                                             .append(dictionary.size())
                                             .append(" entries in ")
-                                            .append(millliseconds)
-                                            .append(" milliseconds ")
+                                            .append(milliseconds)
+                                            .append("ms")
                                             .toString();
         logger.info(message);
     }
 
-    public static Map<String, String> getDictionary()
-    {
+    public static Map<String, String> getDictionary() {
         return DictionaryReference.dictionary;
     }
 }
