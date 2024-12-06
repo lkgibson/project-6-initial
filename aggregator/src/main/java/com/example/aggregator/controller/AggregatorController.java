@@ -33,7 +33,6 @@ public class AggregatorController {
 
     @GetMapping("/getDefinitionFor/{word}")
     public Entry getDefinitionFor(@PathVariable String word) {
-
         StopWatch sw = new StopWatch();
         sw.start();
         Entry result = service.getDefinitionFor(word);
@@ -52,7 +51,6 @@ public class AggregatorController {
 
     @GetMapping("/getWordsThatContainSuccessiveLettersAndStartsWith/{chars}")
     public List<Entry> getWordsThatContainSuccessiveLettersAndStartsWith(@PathVariable String chars) {
-
         StopWatch sw = new StopWatch();
         sw.start();
         List<Entry> results = service.getWordsThatContainSuccessiveLettersAndStartsWith(chars);
@@ -73,7 +71,6 @@ public class AggregatorController {
 
     @GetMapping("/getWordsStartingWith/{chars}")
     public List<Entry> getWordsStartingWith(@PathVariable String chars) {
-
         StopWatch sw = new StopWatch();
         sw.start();
         List<Entry> results = service.getWordsStartingWith(chars);
@@ -94,7 +91,6 @@ public class AggregatorController {
 
     @GetMapping("/getWordsThatContain/{chars}")
     public List<Entry> getWordsThatContain(@PathVariable String chars) {
-
         StopWatch sw = new StopWatch();
         sw.start();
         List<Entry> results = service.getWordsThatContain(chars);
@@ -115,7 +111,6 @@ public class AggregatorController {
 
     @GetMapping("/getWordsThatContainSpecificConsecutiveLetters/{chars}")
     public List<Entry> getWordsThatContainSpecificConsecutiveLetters(@PathVariable String chars) {
-
         StopWatch sw = new StopWatch();
         sw.start();
         List<Entry> results = service.getWordsThatContainSpecificConsecutiveLetters(chars);
@@ -133,4 +128,23 @@ public class AggregatorController {
         log.info(message);
         return results;
     }
+
+    @GetMapping("/getAllPalindromes")
+    public List<Entry> getAllPalindromes() {
+        StopWatch sw = new StopWatch();
+        sw.start();
+        List<Entry> results = service.getAllPalindromes();
+        sw.stop();
+
+        long nanoSeconds = sw.getTotalTimeNanos();
+        String message = new StringBuilder().append("Retrieved entries for palindromes, containing ")
+                .append(results.size())
+                .append(" entries in ")
+                .append(nanoSeconds / 1000000.0)
+                .append("ms")
+                .toString();
+        log.info(message);
+        return results;
+    }
+
 }

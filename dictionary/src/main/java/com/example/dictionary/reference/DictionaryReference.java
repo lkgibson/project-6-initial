@@ -39,12 +39,12 @@ public class DictionaryReference {
         sw.start();
 
         InputStream inputStream = DictionaryReference.class.getClassLoader()
-                                                           .getResourceAsStream("dictionary.json");
+                .getResourceAsStream("dictionary.json");
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         String json = bufferedReader.lines()
-                                    .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n"));
 
         ObjectMapper mapper = new ObjectMapper();
         dictionary = mapper.readValue(json, Map.class);
@@ -54,11 +54,11 @@ public class DictionaryReference {
         long milliseconds = sw.getLastTaskTimeMillis();
 
         String message = new StringBuilder().append("Dictionary created with ")
-                                            .append(dictionary.size())
-                                            .append(" entries in ")
-                                            .append(milliseconds)
-                                            .append("ms")
-                                            .toString();
+                .append(dictionary.size())
+                .append(" entries in ")
+                .append(milliseconds)
+                .append("ms")
+                .toString();
         logger.info(message);
     }
 
